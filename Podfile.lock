@@ -1,0 +1,16 @@
+PODS:
+  - PPFEquableItemsView (0.0.1)
+
+DEPENDENCIES:
+  - PPFEquableItemsView (~> 0.0.1)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - PPFEquableItemsView
+
+SPEC CHECKSUMS:
+  PPFEquableItemsView: 4a75bdeefc33f810634702f29957da117c8a3212
+
+PODFILE CHECKSUM: 2ad84cb07c9edbcffb902b73ff8411004e7b9e45
+
+COCOAPODS: 1.7.2
