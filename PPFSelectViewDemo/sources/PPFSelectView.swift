@@ -16,10 +16,12 @@ import PPFEquableItemsView
 
 @objc public protocol PPFSelectView_delegate {
     func ppfSelectView(_ sView:PPFSelectView,didSelectAtIndex index:Int)
+    @objc optional func ppfSelectView(_ sView:PPFSelectView,animationDurationForBegin layer:CAShapeLayer) -> CFTimeInterval
+    @objc optional func ppfSelectView(_ sView:PPFSelectView,animationDurationForEnd layer:CAShapeLayer) -> CFTimeInterval
 }
 
 /// 多项选择的view,下面有下滑线,选择哪项,滑到哪里
-open class PPFSelectView: UIView {
+@objc open class PPFSelectView: UIView {
 
     weak var showViews:PPFEquableItemsView!
     weak var buttomShowViews:PPFEquableItemsView!
@@ -32,10 +34,10 @@ open class PPFSelectView: UIView {
     /// 下划线显示的高度
     let itemHeight:CGFloat
     
-    public var dataSource:PPFSelectView_dataSource?
-    public var delegate:PPFSelectView_delegate?
+    @objc public var dataSource:PPFSelectView_dataSource?
+    @objc public var delegate:PPFSelectView_delegate?
     
-    public init(color:UIColor,itemWidthRate:CGFloat,itemHeight:CGFloat = 1,frame: CGRect = CGRect.zero) {
+    @objc public init(color:UIColor,itemWidthRate:CGFloat,itemHeight:CGFloat = 1,frame: CGRect = CGRect.zero) {
         self.color = color
         self.itemWidthRate = itemWidthRate
         self.itemHeight = itemHeight
@@ -64,6 +66,7 @@ open class PPFSelectView: UIView {
         bottomLineV = {
             let v = PPFLineView(color: color)
             v.translatesAutoresizingMaskIntoConstraints = false
+            v.delegate = self
             addSubview(v)
             return v
         }()
@@ -103,13 +106,13 @@ open class PPFSelectView: UIView {
 
 // MARK: - public
 extension PPFSelectView {
-    public func reloadDataSource(index:Int = 0) {
+    @objc public func reloadDataSource(index:Int = 0) {
         showViews.reloadDataSources()
         buttomShowViews.reloadDataSources()
         selectItem(at: index)
     }
     @discardableResult
-    public func selectItem(at index:Int) -> Bool{
+    @objc public func selectItem(at index:Int) -> Bool{
         guard index >= 0 && index < dataSource?.ppfSelectViewHasNumberOfItems(self) ?? 0 else{
             return false
         }
@@ -125,6 +128,11 @@ extension PPFSelectView {
         
         bottomLineV.showInStart(start, end: end)
         return true
+    }
+    
+    /// 下滑线的动画类型,如果是type0,要实现,代理方法里的animationDurationForBegin和animationDurationForEnd
+    @objc public func setAnimationType(_ type:PPFLineView.AnimationType) {
+        bottomLineV.animationType = type
     }
 }
 
@@ -145,5 +153,16 @@ extension PPFSelectView:PPFEquableItemsViewDataSource {
         default:
             fatalError()
         }
+    }
+}
+
+// MARK: - PPFLineView_Delegate
+extension PPFSelectView : PPFLineView_Delegate{
+    public func ppfLineView(_ lView: PPFLineView, animationDurationForBegin layer: CAShapeLayer) -> CFTimeInterval {
+        return delegate?.ppfSelectView?(self, animationDurationForBegin: layer) ?? 0.2
+    }
+    
+    public func ppfLineView(_ lView: PPFLineView, animationDurationForEnd layer: CAShapeLayer) -> CFTimeInterval {
+        return delegate?.ppfSelectView?(self, animationDurationForEnd: layer) ?? 0.3
     }
 }

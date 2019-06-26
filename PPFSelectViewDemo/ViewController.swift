@@ -16,10 +16,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let _ = {
             let l = PPFSelectView(color: UIColor.red, itemWidthRate: 0.2,itemHeight: 2)
-            l.center = view.center
             l.frame.size = CGSize(width: 200, height: 40)
+            l.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
             l.dataSource = self
             l.delegate = self
+            l.setAnimationType(.type0)
             view.addSubview(l)
             l.reloadDataSource()
             return
@@ -41,13 +42,16 @@ extension ViewController:PPFSelectView_dataSource {
         l.textColor = UIColor.black
         return l
     }
-    
-    
 }
 extension ViewController:PPFSelectView_delegate {
     func ppfSelectView(_ sView: PPFSelectView, didSelectAtIndex index: Int) {
-        
         print("已选中:\(index)")
+    }
+    func ppfSelectView(_ sView: PPFSelectView, animationDurationForBegin layer: CAShapeLayer) -> CFTimeInterval {
+        return 0.3
+    }
+    func ppfSelectView(_ sView: PPFSelectView, animationDurationForEnd layer: CAShapeLayer) -> CFTimeInterval {
+        return 0.2
     }
 }
 
