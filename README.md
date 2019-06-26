@@ -14,6 +14,7 @@ pod pod 'PPFSelectView', '~> 0.0.1'
 ```
 let l = PPFSelectView(color: UIColor.red, itemWidthRate: 0.2,itemHeight: 2)
 l.frame.size = CGSize(width: 200, height: 40)
+l.setAnimationType(.type0)
 l.dataSource = self
 l.delegate = self
 view.addSubview(l)
@@ -46,6 +47,12 @@ extension ViewController:PPFSelectView_dataSource {
 extension ViewController:PPFSelectView_delegate {
     func ppfSelectView(_ sView: PPFSelectView, didSelectAtIndex index: Int) {
         print("已选中:\(index)")
+    }
+    func ppfSelectView(_ sView: PPFSelectView, animationDurationForBegin layer: CAShapeLayer) -> CFTimeInterval {
+        return 0.3
+    }
+    func ppfSelectView(_ sView: PPFSelectView, animationDurationForEnd layer: CAShapeLayer) -> CFTimeInterval {
+        return 0.2
     }
 }
 ```
