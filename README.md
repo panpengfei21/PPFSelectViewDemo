@@ -7,7 +7,7 @@
 ## 引用
 
 ```
-pod pod 'PPFSelectView', '~> 0.0.1'
+pod 'PPFSelectView', '~> 0.0.1'
 ```
 
 ## 怎么用
