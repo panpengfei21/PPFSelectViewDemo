@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "PPFSelectView"
-  spec.version      = "0.1.0"
+  spec.version      = "0.1.1"
   spec.summary      = "有多项选择的view,带有下滑线"
 
   # This description is used to generate tags and improve search results.
@@ -65,7 +65,7 @@ Pod::Spec.new do |spec|
 
   # spec.platform     = :ios
    spec.platform     = :ios, "9.0"
-  spec.swift_version = "4.2"
+   spec.swift_version = "5.0"
 
   #  When using multiple platforms
   # spec.ios.deployment_target = "5.0"
