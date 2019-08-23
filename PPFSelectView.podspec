@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "PPFSelectView"
-  spec.version      = "0.1.1"
+  spec.version      = "0.1.2"
   spec.summary      = "有多项选择的view,带有下滑线"
 
   # This description is used to generate tags and improve search results.
@@ -49,7 +49,7 @@ Pod::Spec.new do |spec|
   #  accepts just a name if you'd rather not provide an email address.
   #
   #  Specify a social_media_url where others can refer to, for example a twitter
-  #  profile URL.
+  #  profile URL. 
   #
 
   spec.author             = { "潘鹏飞" => "49594857@qq.com" }
@@ -133,6 +133,6 @@ Pod::Spec.new do |spec|
   spec.requires_arc = true
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  spec.dependency "PPFEquableItemsView", "~>0.0.1"
+  spec.dependency "PPFEquableItemsView", "~>0.0.2"
 
 end
